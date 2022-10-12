@@ -11,4 +11,4 @@ server.get('/status', (req, res) => {
     res.sendStatus(200);
 });
 
-server.listen(process.env.PORT, console.log(`Magic happens on port ${process.env.PORT}`));
+server.listen(process.env.PORT, console.log(`Listening on port ${process.env.PORT}`));
