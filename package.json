@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx nodemon src/server.js",
-    "start": "node src/server.js"
+    "start": "node src/server"
   },
   "keywords": [],
   "author": "Vinícius de Freitas Roque",
