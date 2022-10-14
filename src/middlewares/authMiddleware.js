@@ -1,5 +1,6 @@
 import connection from "../database/database.js";
 import joi from 'joi';
+import bcrypt from 'bcrypt';
 
 const signUpSchema = joi.object({
     name: joi.string().min(1).required(),
@@ -35,4 +36,34 @@ async function validateSingUp(req, res, next) {
     next();
 }
 
-export { validateSingUp };
+async function validateSingIn(req, res, next) {
+    const { error } = signInSchema.validate(req.body, { abortEarly: false });
+
+    if(error) {
+        return res.send(error.message).status(422);
+    }
+
+    const { email, password } = req.body;
+    
+    const user = (await connection.query(
+        'SELECT * FROM users WHERE email = $1', [email])
+    ).rows;
+
+    const validEmail = user.find(value => value.email === email);
+
+    if(!validEmail) {
+        return res.sendStatus(401);
+    }
+
+    const validPassword = bcrypt.compareSync(password, user[0].password);
+
+    if(!validPassword) {
+        return res.sendStatus(401);
+    }
+
+    res.locals.userId = user[0].id;
+
+    next();
+}
+
+export { validateSingUp, validateSingIn };
