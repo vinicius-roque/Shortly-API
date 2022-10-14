@@ -21,15 +21,47 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: sessions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.sessions (
+    id integer NOT NULL,
+    "userId" integer NOT NULL,
+    token text NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.sessions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.sessions_id_seq OWNED BY public.sessions.id;
+
+
+--
 -- Name: urls; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.urls (
     id integer NOT NULL,
-    "userId" integer,
     url text NOT NULL,
     "shortUrl" text NOT NULL,
-    "visitCount" integer DEFAULT 0 NOT NULL
+    "visitCount" integer DEFAULT 0 NOT NULL,
+    "userId" integer NOT NULL
 );
 
 
@@ -86,6 +118,13 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: sessions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sessions ALTER COLUMN id SET DEFAULT nextval('public.sessions_id_seq'::regclass);
+
+
+--
 -- Name: urls id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -100,6 +139,12 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
+-- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+
+
+--
 -- Data for Name: urls; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -109,10 +154,13 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users VALUES (1, 'Vinícius', 'vini@gmail.com', '$2b$12$hZcYtDVv1BvWNCc64KDWR.58LoxF/./A2Q2jzvl5xH7r4vk4n85hG');
-INSERT INTO public.users VALUES (2, 'João', 'joao@driven.com.br', '$2b$12$CAxuSNOf3C5/Ju2K7kjDhOV7zlOb094qABeWoykjUfhIO1AO6Y5E6');
-INSERT INTO public.users VALUES (3, 'Vinícius', 'viniciusfr6@gmail.com.br', '$2b$12$3VPdDivx3q88R0/bQYJ2HuSH/8ebwfES7w5UpdsHu7zEYNpjR0AgG');
-INSERT INTO public.users VALUES (4, 'Vinícius', 'viniboy@gmail.com.br', '$2b$12$VN0TVCPegpONJlAiPdftBeKMTdDXYzG2AEFFCh0/QPRsPews2Iv8y');
+
+
+--
+-- Name: sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.sessions_id_seq', 1, false);
 
 
 --
@@ -126,7 +174,15 @@ SELECT pg_catalog.setval('public.urls_id_seq', 1, false);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 4, true);
+SELECT pg_catalog.setval('public.users_id_seq', 1, false);
+
+
+--
+-- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sessions
+    ADD CONSTRAINT sessions_pkey PRIMARY KEY (id);
 
 
 --
@@ -151,6 +207,14 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sessions sessions_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sessions
+    ADD CONSTRAINT "sessions_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users(id);
 
 
 --
