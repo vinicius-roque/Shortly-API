@@ -23,6 +23,7 @@ async function validateSignUp(req, res, next) {
     }
 
     const { email } = req.body;
+    
     const exintingEmail = await connection.query(
         'SELECT * FROM users WHERE email = $1;', [email]
     );
