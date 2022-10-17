@@ -9,7 +9,7 @@ const databaseConfig = {
     ssl: {
         rejectUnauthorized: false
     }
-}
+};
 
 const connection = new Pool(databaseConfig);
 
