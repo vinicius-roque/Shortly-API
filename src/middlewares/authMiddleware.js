@@ -30,7 +30,7 @@ async function validateSignUp(req, res, next) {
     );
 
     if(exintingEmail.rows.length > 0) {
-        return res.status(409).send("Este email já está sendo usado, tente outro!");
+        return res.status(409).send("This email is already being used, please try another one!");
     } 
 
     next();
