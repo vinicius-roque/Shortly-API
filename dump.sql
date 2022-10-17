@@ -151,6 +151,10 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 INSERT INTO public.urls VALUES (1, 'https://hub.driven.com.br/tempo-de-codigo', '7qXbQC_l', 0, NULL);
 INSERT INTO public.urls VALUES (2, 'https://stackoverflow.com/questions/59430790/null-value-in-column-violates-not-null-constraint-postgresql', 'wl-ap25q', 0, NULL);
 INSERT INTO public.urls VALUES (3, 'https://stackoverflow.com/questions/59430790/null-value-in-column-violates-not-null-constraint-postgresql', 'u-D7Ptd5', 0, NULL);
+INSERT INTO public.urls VALUES (4, 'https://stackoverflow.com/questions/59430790/null-value-in-column-violates-not-null-constraint-postgresql', '5l-MQ5zT', 0, NULL);
+INSERT INTO public.urls VALUES (5, 'https://github.com/vinicius-roque?tab=repositories', 'wzMPDc6p', 0, NULL);
+INSERT INTO public.urls VALUES (6, 'https://github.com/vinicius-roque?tab=repositories', 'YRKmF5D2Gt', 0, NULL);
+INSERT INTO public.urls VALUES (7, 'https://github.com/vinicius-roque?tab=repositories', '990Qb21e', 0, NULL);
 
 
 --
@@ -176,7 +180,7 @@ SELECT pg_catalog.setval('public.sessions_id_seq', 20, true);
 -- Name: urls_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.urls_id_seq', 3, true);
+SELECT pg_catalog.setval('public.urls_id_seq', 7, true);
 
 
 --
