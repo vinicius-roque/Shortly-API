@@ -22,5 +22,3 @@ async function validateUrl(req, res, next) {
 }
 
 export { validateUrl };
-
-
